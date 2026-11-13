@@ -47,6 +47,10 @@ public final class DeathAwaits {
     public static final String SITE_URL = "https://deathawaits.com.br";
     public static final String DISCORD_URL = "https://discord.gg/gc73gQfb5F";
     private static final String PREF_VERSAO = "deathawaits_modpack_versao";
+    private static final String PREF_CONTROLES = "deathawaits_controles_versao";
+    /** Aumente quando mudar o assets/deathawaits.json para os jogadores receberem o layout novo. */
+    private static final int CONTROLES_VERSAO = 1;
+    public static final String ARQUIVO_CONTROLES = "deathawaits.json";
 
     /** Arquivos do modpack do PC que nao vao para o celular. */
     private static boolean ignorar(String caminho) {
@@ -65,6 +69,7 @@ public final class DeathAwaits {
         PojavApplication.sExecutorService.execute(() -> {
             try {
                 instalarOuAtualizar();
+                instalarControles(act);
                 garantirPerfil();
                 ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, -1, -1);
                 rodando = false;
@@ -153,6 +158,17 @@ public final class DeathAwaits {
         zip.delete();
     }
 
+    /** Layout de botoes do Crafting Dead (recarregar, modo de tiro, arma rapida, mochila...) em portugues. */
+    static void instalarControles(android.content.Context ctx) {
+        SharedPreferences prefs = LauncherPreferences.DEFAULT_PREF;
+        File destino = new File(Tools.CTRLMAP_PATH, ARQUIVO_CONTROLES);
+        if (destino.exists() && prefs.getInt(PREF_CONTROLES, 0) >= CONTROLES_VERSAO) return;
+        try {
+            Tools.copyAssetFile(ctx, ARQUIVO_CONTROLES, Tools.CTRLMAP_PATH, true);
+            prefs.edit().putInt(PREF_CONTROLES, CONTROLES_VERSAO).apply();
+        } catch (IOException e) { Log.w(TAG, "controles", e); }
+    }
+
     /** Perfil "DeathAwaits" com a versao do modpack, selecionado. */
     static void garantirPerfil() {
         LauncherProfiles.load();
@@ -162,6 +178,7 @@ public final class DeathAwaits {
             p.name = "DeathAwaits";
         }
         p.lastVersionId = VERSION_ID;
+        if (p.controlFile == null || p.controlFile.isEmpty()) p.controlFile = ARQUIVO_CONTROLES;
         LauncherProfiles.mainProfileJson.profiles.put(PROFILE_KEY, p);
         LauncherProfiles.write();
         LauncherPreferences.DEFAULT_PREF.edit().putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, PROFILE_KEY).commit();
