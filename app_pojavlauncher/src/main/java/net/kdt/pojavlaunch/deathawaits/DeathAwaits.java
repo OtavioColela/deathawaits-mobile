@@ -121,6 +121,7 @@ public final class DeathAwaits {
         if (lista != null) for (File f : lista) if (ignorar("mods/" + f.getName())) f.delete();
 
         criarServersDat(jogo);
+        configuracaoLeve(jogo);
         prefs.edit().putString(PREF_VERSAO, versao).apply();
     }
 
@@ -182,6 +183,25 @@ public final class DeathAwaits {
         LauncherProfiles.mainProfileJson.profiles.put(PROFILE_KEY, p);
         LauncherProfiles.write();
         LauncherPreferences.DEFAULT_PREF.edit().putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, PROFILE_KEY).commit();
+    }
+
+    /**
+     * Primeira vez no celular: graficos leves (o Crafting Dead e pesado) e resolucao interna de ~70%.
+     * So mexe se o jogador ainda nao tiver configurado; depois ele muda como quiser.
+     */
+    private static void configuracaoLeve(File jogo) {
+        File opt = new File(jogo, "options.txt");
+        if (!opt.exists()) {
+            try (FileOutputStream o = new FileOutputStream(opt)) {
+                o.write(("renderDistance:2\nfancyGraphics:false\nao:0\nparticles:2\nclouds:false\nviewBobbing:false\n"
+                        + "guiScale:0\nadvancedOpengl:false\nfboEnable:true\nlang:pt_BR\n").getBytes("UTF-8"));
+            } catch (IOException e) { Log.w(TAG, "options.txt", e); }
+        }
+        SharedPreferences prefs = LauncherPreferences.DEFAULT_PREF;
+        if (!prefs.contains("resolutionRatio")) {
+            prefs.edit().putInt("resolutionRatio", 70).apply();
+            LauncherPreferences.PREF_SCALE_FACTOR = 0.7f;
+        }
     }
 
     /** servers.dat com o servidor (para quem sair e quiser voltar pelo Multiplayer). */
