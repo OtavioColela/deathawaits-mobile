@@ -33,7 +33,7 @@
                 style="@style/LauncherMenuButton.Universal"
                 android:layout_width="0dp"
                 android:drawableStart="@drawable/ic_menu_news"
-                android:text="@string/mcl_tab_wiki"
+                android:text="@string/da_site"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/social_divider"/>
@@ -143,7 +143,7 @@
 
 
         android:layout_marginEnd="@dimen/_8sdp"
-        android:text="@string/main_play"
+        android:text="@string/da_jogar"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="@+id/mc_version_spinner"
         app:layout_constraintEnd_toEndOf="parent"

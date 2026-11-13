@@ -28,7 +28,7 @@
 				android:id="@+id/news_button"
 				style="@style/LauncherMenuButton.Universal"
 				android:layout_width="0dp"
-				android:text="@string/mcl_tab_wiki"
+				android:text="@string/da_site"
 				android:drawableStart="@drawable/ic_menu_news"
 				app:layout_constraintTop_toTopOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +134,7 @@
 		android:layout_marginBottom="@dimen/_15sdp"
 
 		android:textAllCaps="true"
-		android:text="@string/main_play"
+		android:text="@string/da_jogar"
 		app:layout_constraintBottom_toBottomOf="parent"
 		/>
 

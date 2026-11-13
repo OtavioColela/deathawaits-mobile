@@ -59,8 +59,13 @@ public class MainMenuFragment extends Fragment {
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
-        mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
-        mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
+        mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), net.kdt.pojavlaunch.deathawaits.DeathAwaits.SITE_URL));
+        mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), net.kdt.pojavlaunch.deathawaits.DeathAwaits.DISCORD_URL));
+        // DeathAwaits: o launcher cuida da versao e do modpack sozinho, entao esses botoes ficam escondidos
+        mInstallJarButton.setVisibility(View.GONE);
+        mOpenDirectoryButton.setVisibility(View.GONE);
+        mEditProfileButton.setVisibility(View.GONE);
+        mVersionSpinner.setVisibility(View.GONE);
         mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
         if (hasOnlineProfile()) {
             mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
@@ -82,7 +87,7 @@ public class MainMenuFragment extends Fragment {
                         })
                         .create();
                 sodiumWarningDialog.show();
-            } else ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+            } else net.kdt.pojavlaunch.deathawaits.DeathAwaits.jogar(requireActivity());
         });
 
         mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));

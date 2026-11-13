@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="da_site" translatable="false">Site do DeathAwaits</string>
+    <string name="da_jogar" translatable="false">JOGAR</string>
+    <string name="da_verificando" translatable="false">Verificando o modpack do DeathAwaits…</string>
+    <string name="da_baixando" translatable="false">Baixando o modpack: %1$d de %2$d MB</string>
+    <string name="da_instalando" translatable="false">Instalando o modpack…</string>
+    <string name="da_erro_modpack" translatable="false">Não foi possível preparar o DeathAwaits. Confira sua internet e tente de novo.</string>
+</resources>

@@ -849,6 +849,8 @@ public final class Tools {
                 versionInfo.minecraftArguments;
 
         if(profile.isDemo()) mcArguments += " --demo";
+        // DeathAwaits: o perfil do servidor ja entra direto nele
+        mcArguments += net.kdt.pojavlaunch.deathawaits.DeathAwaits.argumentosExtras(versionInfo.id);
 
         return JSONUtils.insertJSONValueList(splitAndFilterEmpty(mcArguments), varArgMap);
     }
